@@ -1,0 +1,11 @@
+3. Creating GitHub Forks
+========================
+Forks are a useful tool for working with GitHub projects. Forks provide a way for any user to create their own personal copy of a GitHub repository which they can fully control without interfering with other users. They are widely used in managing open source projects. In this you will learn how to create a fork of a GitHub repository.
+
+
+Creating GitHub Forks:
+======================
+1. Navigate to a particular repository using your browser ex: "https://github.com/linuxacademy/cicd-pipeline-train-schedule-git"
+2. on top right there is button fork click on "Fork"  if popup come then select your account where you want to fork
+3. now you can see your repo in your account.
+

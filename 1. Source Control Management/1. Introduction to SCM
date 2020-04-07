@@ -1,0 +1,26 @@
+1. Introduction to SCM
+=======================
+SCM is a vital part of any CI/CD pipeline, and in many ways it is the first step. Anyone who wants to build or maintain a CI/CD pipeline needs a basic understanding of SCM. Git is the most widely used SCM today.
+
+This video will introduce you to the relationship between SCM and CI/CD, and give you an overview of some of the topics that will covered in more detail in this section. After completing this lesson, you should be prepared to learn the basics of installing and using git.
+
+
+* It is a huge part of  the daily dev workflow:
+   - all code changes made by devs will need to be tracked in SCM 
+   - Devs will use SCM to track their changes seprately and then merge them together
+   
+* All pieces of automation that need to interact with the source code will use SCM:
+   - Continuous integration ( CI ) will get the code from SCM
+   - SCM will notify the CI server when code needs to be built
+   
+
+* before moving forward, you need a basic understanding of a Git-based workflow
+* You need to know what steps need to be done in order to make a change to the source code and ensure that change is managed in Git:
+	- Cloning
+	- Adding
+	- Committing
+	- Pushing
+	- Branching 
+	- Merging
+	- Pull Requests
+	

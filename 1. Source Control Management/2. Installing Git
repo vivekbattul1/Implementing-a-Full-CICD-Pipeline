@@ -1,0 +1,52 @@
+2. Installing Git
+==================
+Before you can begin using git, you need to install and configure it. I will walk you through everything that needs to be done in order to install and configure git, and it will also demonstrate each step.
+After completing this, you should be able to install and configure git so that it can authenticate with GitHub.com.
+You can find additional documentation on these topics in the following locations:
+Git installation instructions: https://git-scm.com/downloads .
+
+
+Installing Git:
+---------------
+Git installation instructions for your system:
+https://git-scm.com/downloads
+
+On a Linux distro that uses RPM (Red Hat Package Manager)
+
+$ sudo yum -y install git
+
+$ git --version      // if its command returns successful it means git is properly installed
+
+
+Configuring You Name and Email:
+--------------------------------
+After installing git, you need to set the name and email that will be associated with your commits. 
+When using GitHub, it is best to use and email address that is associated with your GitHub account.
+
+$ git config --global user.name "<your name>"
+$ git config --global user.email <your email>
+
+
+Setting up Private Key Access:
+------------------------------
+An easy way to authenticate with a remote git server like GitHub is to use an ssh key pair.
+On a CentOS environment, you can generate an SSH key pair like this:
+
+$ ssh-keygen -t rsa -b 4096
+
+This command will prompt you for several things. These can be left as their defaults, though it is good practice to enter a passphrase.
+If you do use a passphrase, make sure you remember what it is.
+
+After generating the key pair, copy the contents of  ~/.ssh/id_rsa.pub.
+
+go to GitHub.com ---> click your profile image at the top right, ----> then click "settings" ---> "SSH and GPG Keys"  ---> Click "New ssh key"
+enter a name and paste the contents of id_rsa.pub into the key field, then submit the form.
+
+
+
+
+Note: refer to the GitHub guide for more info, or if you want to set up a key on your own environment:
+=====
+GitHub ssh authentication setup documentation:
+https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/

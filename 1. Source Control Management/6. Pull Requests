@@ -1,0 +1,15 @@
+6. Pull Requests
+================
+Pull requests often play an important role in a CI/CD workflow. This will introduces the concept of pull requests and demonstrates how to create and merge a pull request on GitHub.
+After completing this you should have a basic understanding of pull requests that will be useful as you proceed in implementing a CI/CD pipeline.
+
+
+Pull Requests:
+--------------
+Pull requests are not actually a feature of the git software itself. However, they are a useful tool offered by many git remote server implementations, such as github.
+
+Usually, teams work using multiple branches to manage all of their changes. At some point, these branches need to be merged together (prefereably as often as possible).
+
+Merges can he handled locally using git, but another way to do this is through pull requests.
+
+A pull request is a request made by a developer to merge their changes into another branch (usually a shared mainline). It gives other team members a chance to review the changes before performing the merge.

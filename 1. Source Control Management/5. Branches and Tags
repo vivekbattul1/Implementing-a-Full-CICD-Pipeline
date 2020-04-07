@@ -1,0 +1,49 @@
+5. Branches and Tags:
+---------------------
+Git branches and tags often play a role in CI/CD automation. You will need a basic understanding of these concepts in order to proceed with later steps of implementing a CI/CD Pipeline.
+This document provides a brief introduction to git branches and tags. After completing it, you should have a basic understanding of what tags and branches are in git.
+
+
+git branches:
+-------------
+Branches are used to maintain multiple versions of the code with different changes simultaneously.
+
+Many teams use branches as part of the daily workflow.
+
+Branches can also be used to interact with a CI/CD Pipeline. For example, some teams maintain a "production" branch, and merging changes into this branch initiates automated processes involved with deploying to production.
+
+By default, a git repository starts with one branch called "master".
+
+
+
+git checkout:
+-------------
+git checkout checks out an existing branch. This means that it puts the contents of the branch into your working tree and your working copy of the source code files.
+
+When you commit, whichever branch you have checked out will be the branch that the commit is added to.
+
+	git checkout <branch>
+	
+you can create a new branch and check it out immediately with the -b flag:
+
+	git checkout -b <new branch>
+	
+
+
+git tag:
+--------
+Tags in git are simply pointers to a particular commit. They can be used to provide a name that can be used to refernce that commit in the future.
+
+One use case for tags is to tag source code commits with the version of the software that they represent, so if a particular revision gets released as version 1.0.0, it could be tagged ad "v1.0.0" in order to indicate that.
+
+
+
+commands:
+----------
+git branch    // list all the branches that are currently in the repository and * indicates current checkedout into that branch
+git status    // it will also show you currently working branch
+git checkout -b <branch name>   // It will create a new branch and checkout to that branch 
+git checkout <branch name>  // to checkout to that branch
+git tag <tag name>   // it will create a new tag to that with the current commit code to current repository 
+git tag       // it will list the tags
+

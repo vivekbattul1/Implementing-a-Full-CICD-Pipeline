@@ -1,0 +1,87 @@
+4. Making Changes in Git
+=========================
+A crucial part of using git in any CI/CD Pipeline is making code changes. In order to manage changes to source code in git, you need to know how to clone a remote repository, stage changes to source code files, commit them, and push them back to the remote repo.
+
+
+I will introduce you to a few basic commands that you can use to do this, and it will provide you with a demonstration of their usage. After completing this you should be able to make changes to source code controlled in git, commit them, and push them to GitHub.
+
+
+If you want to follow along, you can make a personal fork of the source code repo at https://github.com/linuxacademy/cicd-pipeline-train-schedule-git. Just go to that repo in GitHub and click "fork." Then, when you clone the repo, clone your personal fork with following command (replace with your actual github username):
+
+git clone git@github.com:/cicd-pipeline-train-schedule-git.git
+
+
+
+git clone:
+----------
+If you are working with source code that already exists in a remote repository, the first thing you need to do is get a copy of the repository so that you can workingwith the files locally:
+
+git clone <repository url>
+
+Ex: git clone https://github.com/linuxacademy/cicd-pipeline-train-schedule-git.git    or
+
+
+This command does two things:
+ - Downloads a local copy of the repository, including the history of all changes
+ - Makes a local copy of the latest version of all the files know as the "working tree"
+ 
+if the code doesn't already exist in a remote repository, you can initialize a new repository locally using:
+
+git init
+
+
+git status:
+-----------
+The status command is a very useful command whenever you need to know about the current status of you local repository:
+
+$ git status
+
+This command will tell you all sorts of useful information, like:
+ - whether you have any changes that are not yet staged for commit
+ - whether you have staged changes that are not committed
+ - What branch you are currently using
+ 
+
+git add:
+--------
+The add command stages changed files for the next commit. This allows you to control which files are committed and which are not:
+
+git add <file>
+
+befor you can commit a change to a file you need to add the file to the staging area.
+Use git status to see which changed files have and have not been added. To add all files that have been changed use:
+
+$ git add .
+
+Or:
+
+$ git add -A
+
+
+git commit:
+-----------
+Commit adds your changes to your local repository and makes them part of the repository's change history.
+When you are satisfied with a change or set of changes that you have made to the files, you are ready to commit them:
+
+git commit -m "<message describing the change>"
+
+A few notes on commit:
+  - Commit only adds the changes to your local copy of the repository. It does not push them to any remote repository, such as GitHub
+  - Commit will only commit the changes that were staged using git add
+  
+
+git push:
+---------
+Git push pushesh the changes that have been made to your local repository to a remote repository, such as GitHub.
+Until you push your changes, they are only stored locally on your system:
+
+git push
+
+By default, push will push the changes to a remote repository associated with the current local branch.
+If you cloned the branch from an existing remote repository, this relationship is already set up for you, and you can simply use git push. 
+If not, you need to specify which remote repository and which remote branch you want push to use:
+
+git push -u <remote name, usually origin> <branch name>
+
+
+

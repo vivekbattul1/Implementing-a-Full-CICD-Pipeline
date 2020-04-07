@@ -1,0 +1,24 @@
+1. Introducing Build Automation
+================================
+Once you have implemented an SCM solution, the next step in building a CI/CD Pipeline is build automation. This will introduce the topic of build automation and will introduce gradle, the tool which will be used to implement build automation. After completing this you should have a basic understanding of the role of build automation in a CI/CD pipeline, and you should be ready to begin learning how to implement a Gradle build for the train schedule app (we are taking this app).
+Get more information on Gradle at https://gradle.org/
+
+
+
+Buid Automation:
+----------------
+Build automation is the automation of tasks needed in order to process and prepare source code for deployment to production. It is an important component of continuous integration.
+
+This includes things like:
+	- Compiling
+	- Dependency Management
+	- Executing Automated Tests
+	- Packaging the App for Deployment
+
+
+Gradle:
+-------
+In this course, we will use Gradle as our build automation tool. There are plenty of other tools, but Gradle is very powerfull for doing the things we will need to do.
+
+Use the following link to download Gradle:
+https://gradle.org/
