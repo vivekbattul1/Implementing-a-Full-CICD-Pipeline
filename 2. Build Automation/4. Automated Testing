@@ -1,0 +1,42 @@
+4. Automated Testing
+====================
+Automated testing is a very important component of a CI/CD Pipeline, and it is often performed using build automation. The concept of automated testing and covers a few different types of automated tests. It also discusses the basics of executing automated tests in Gradle and demonstrates what that can look like.
+After completing this you will have a foundational understanding of automated tests that will allow you to incorporate them into the CI/CD Pipeline.
+
+
+What is Automated Testing?
+--------------------------
+
+- Automated testing is the automated execution of tests that verify the quality and stability of code.
+- Automated tests are usually code themselves, so they are code that is writeen to test other code.
+- Automated tests are often run as a part of the build process and are executed using build tools like Gradle.
+
+
+Types of Automated Tests
+-------------------------
+There are multiple types of automated tests:
+--------------------------------------------
+	- Unit Tests - focus on testing small pieces of code in isolation. Usually a single method or function.
+	- Integration Tests - test larger portions of an application that are integrated with each other.
+	- Smoke Tests/Sanity Tests - these are high-level integration tests that verify basic, large-scale things like 
+	  wheter or not the application runs, whether application endpoints return http 500 errors, etc.
+
+The degree of testing implemented at any of these levels is up to the team!
+
+
+Running Automated Tests in Gradle
+----------------------------------
+
+How the tests are run depends on what type of tests you have and the technology used to build them.
+Generally, automated tests will be run in Gradle as a task that gets executed as part of the buil process:
+	
+	- task build
+	- task test
+	- build.dependsOn test
+
+Whenever ./gradlew build gets run, the test task will also run!
+
+
+to run test using following command:
+
+$ ./gradlew npm_test
