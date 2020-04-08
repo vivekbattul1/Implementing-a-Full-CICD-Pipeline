@@ -1,0 +1,86 @@
+3. Setting up Jenkins Projects
+===============================
+
+Jenkins projects are at the core of doing any kind of automation in Jenkins. 
+The CI process for an application is generally configured in Jenkins as a Jenkins project. 
+This will introduce the concept of Jenkins projects. It will also demonstrate how to set up a freestyle project that pulls application source code from GitHub and executes build automation against it. 
+After completing this you will know how to configure a simple freestyle project in Jenkins.
+
+
+Here is the source code for the train-schedule application: https://github.com/linuxacademy/cicd-pipeline-train-schedule-jenkins
+
+
+
+Jenkins Projects:
+-----------------
+The configuration which controls what a piece of Jenkins automation does and when it executes is called a project.
+
+A simple way to implement a CI build in Jenkins is with a freestyle project.
+
+Click on "New Item" to create a new project.
+
+
+
+Demo:
+-----
+Let's set up a new freestyle project in Jenkins!
+
+We will set up a CI build for the train schedule app found at https://github.com/linuxacademy/cicd-pipeline-train-schedule-jenkins
+
+This build will:
+	- Check out the code from GitHub
+	- Run the gradle build automation that is packaged with the source code
+
+
+step1:
+-------
+Open Jenkins ---> 
+
+step2:
+------
+Clicek on "New Item" form left pane ---> 
+Enter an item name "Train-schedule"  ----> // it is just any project name you want 
+click on "Freestyle project" ---> click "ok" ---->
+
+step3:
+------
+go to "Source Code Management" section ---->
+select "Git" radio button ---->
+paste the repository URL in "Repository URL" ---->   //  NOTE: if repo is private you need to setup credentials
+
+step4:
+------
+go to "Build" section --->
+click on "Add build step" --->
+select "Invoke Gradle script" --->
+select "Use Gradle Wrapper" radio button --->
+in "Tasks" text box enter "build"  --->  it will call ./gradlew build to actually build the gradle build
+
+step5:
+------
+I need to archive that as a jenkins artifact so i can access the .zip file after the build.
+go to "Post-build Actions" --->
+select "Archive the artifacts" --->
+enter in "Files to archive" textbox "dist/trainschdule.zip"  --->  // trainschdule.zip is change as per you project name what you give
+
+step6:
+------
+click on "Save" and exit from from the configuration page
+
+
+step7:
+------
+click on "Build Now" to exectute the project --->
+
+click on the left side blnking button to check the console output (building output & its a kind of logs)
+
+
+step8:
+------
+after executing successfull build go back to project dashboard & download .zip file 
+
+
+ 
+
+
+

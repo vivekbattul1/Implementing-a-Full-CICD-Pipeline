@@ -1,0 +1,86 @@
+4. Triggering Builds with Git Hooks:
+------------------------------------
+
+One of the most important aspects of a good CI process is quick feedback whenever there is a change. This means that it is important to execute builds as soon as possible after a code change is pushed to source control. One of the best ways to do this with GitHub and Jenkins is to use webhooks to have GitHub notify Jenkins when there is a change so that Jenkins can automatically start the build.
+I will show you how to configure webhooks from GitHub to Jenkins. After completing this, you should be able to configure Jenkins to automatically execute a build whenever there is a code change in GitHub.
+
+
+If you want to follow along, here is the source code for the train schedule application : https://github.com/linuxacademy/cicd-pipeline-train-schedule-jenkins
+
+
+Webhooks :
+---------
+Webhooks are event notifications made from one application to another over http.
+
+In Jenkins, we can use webhooks to have GitHub notify Jenkins whenever the code in GitHub changes.
+Jenkins can respond by automatically running the build to implement any changes.
+
+We can configure jenkins to automatically create and manage webhooks in GitHub as necessary.
+
+
+Setting up GitHub Webhooks in Jenkins:
+--------------------------------------
+	Configuring webhooks in Jenkins is relatively easy. We need to:
+		- Create an access token in Github that has permission to read and create webhooks
+		- Add a GitHub server in Jenkins for GitHub.com/linuxacademy/cicd-pipeline-train-schedule-jenkins
+		- Create a Jenkins credentials with the token and configure the GitHub server configuration to use it
+		- Check "ManageHooks" for the GitHub server configuration
+		- In the projet configuration, under "Build Triggers," select "GitHub hook trigger for GITScm polling"
+		
+		
+step by step setup of above steps:
+-----------------------------------
+step1: Create an access token in Github that has permission to read and create webhooks
+------
+go to github repository ----> select your icon from right top --> select "settings"  --->
+click on "devloper settings" ---> click on "Personal access tokens" ---> click "Generate new token" ---> 
+in "Token Description" box enter token name (any name what you want) "jenkins" ---->
+from "select scopes" section check "admin:repo_hook" full control of repository hooks option --->
+and click "generate token" --->
+
+now you get API key copy that key
+
+now ready to go jenkins to configure api key
+
+
+
+step2:
+ - Add a GitHub server in Jenkins for GitHub.com/linuxacademy/cicd-pipeline-train-schedule-jenkins
+ - Create a Jenkins credentials with the token and configure the GitHub server configuration to use it
+------
+go to jenkins dashboard ---> select "Manage Jenkins" ---> select "Configure system" (here we configure global settings and paths.) --->
+now go to "GitHub" section ---> click "Add GitHub Server" ---> click "GitHub server" ---> give Name: <anything you want> eg: GitHub
+API URL: https://api.github.com (already there leave this) 
+
+Credentials ---> add drop down select "jenkins ---> 
+for "kind" dropdown menu select "Secret text"-->
+in secret text box--> paste "API KEY"--> 
+ID :"github_key" ---> 
+description : anything you want --->
+click on "add" --->
+select credentials from credentials from dropdown --->
+make sure check the "manage hooks" -->
+click on "save"
+
+
+step 3: In the projet configuration, under "Build Triggers," select "GitHub hook trigger for GITScm polling"
+-------
+
+click on your project name ---> click on "configure"  ----> on git section make sure your repo url is correct 
+
+go to "Build Triggers" section ---> select "GitHub hook trigger for GITScm polling ---> click "save" and exit
+
+
+
+Now go to "your github account repo where is your code" --->
+click on "settings" --->
+click on "webhooks" -->
+now you can see webhook here for eg: http://<jenkins server public IP>:<port>/github-webhook/(push)    //it will come after jenkins configuration
+go back to repo and change something and commit the change ---> immidetely go back to jenkins and you show build is triggered automatically.
+
+click on "build no" from left side you can see who started the job 
+
+
+
+yuhhuuu finally you know how to setup webhooks in github and within jenkins!!!!!!!!!!!!1111
+

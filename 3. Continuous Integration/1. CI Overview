@@ -1,0 +1,44 @@
+1. CI Overview
+===============
+Continuous Integration is an essential component of a full CI/CD Pipeline. We will briefly discuss what CI is, 
+and it will introduce the CI tools that will be used in this course: Jenkins. 
+After completing this you will be ready to begin learning how to implement CI using Jenkins.
+
+For more information on Jenkins, check out the official Jenkins site: https://jenkins.io/
+
+
+
+Continuous Inegration
+----------------------
+Continuous Integration (CI): the practice of frequently merging code changes.
+
+BUT frequent merges cause difficulties:
+	- What if the code doesn't compile after a merge?
+	- What if someone broke something?
+	- It world be a lot of work to check these things on every merge
+
+The solution: automate it!
+
+
+How CI Works
+-------------
+A CI server executes a build that automatically prepares/compiles the code and runs automated tests.
+
+Usually, the CI server automatically detects code changes in source control and runs the build whenever there is a change.
+
+If something is wrong, the build fails. The team can get imeediate feedback if their change broke something.
+
+Merging frequently throughout the day and getting quick feedback means that if you broke something, you broke it with your changes
+within the last couple hours. This is much easier to fix than if you broke something with your changes from a week ago!
+
+
+
+Jenkins:
+---------
+We wil be using Jenkins as our CI server in this course.
+
+From https://jenkins.io :
+"The leading open source automation server, Jenkins
+provides hundreds of plugins to support building, deployig
+and automating any project."
+
