@@ -1,0 +1,179 @@
+3. Deployment with Jenkins Pipelines
+====================================
+
+In order to succeed with continuous delivery and continuous deployment, deployment automation is essential. In this we will be implementing automated deployments within a Jenkins pipeline. We will create pipeline stages to automatically deploy to a staging server and a production server. After completing this you will have some familiarity with how automated deployment can be implementing using Jenkins Pipelines.
+
+Check out the pipeline steps reference for the Publish Over SSH plugin used in the demo: https://jenkins.io/doc/pipeline/steps/publish-over-ssh/
+
+Here is the sample source code used in the demo. Check the example-solution branch for the complete Jenkinsfile: https://github.com/linuxacademy/cicd-pipeline-train-schedule-cd
+
+
+Continuous Delivery:
+--------------------
+Continuous Delivery means ensuring that you are always able to deploy any version of your code. It is Necessary in Continuous Deploymen,
+where you are actually deploying your code frequenctly.
+
+In order to support Continuous Delivery/ Deployment with a Jenkins Pipeline, we need to use the Pipeline to automate the deployment process.
+
+
+Automated Deployment in a Pipeline:
+-----------------------------------
+
+Here's how we can automate deployments in a Pipeline:
+
+- Define Stages for stages of the CD process that involve deploying:
+		- For example, if we have a staging server and a production server,
+		  we could implement stages called "Deploy to Staging" and "Deploy to Production"
+
+- In each deployment stage, define Steps that perfrom the tasks necessary to carry out the deployment:
+		- For example, copy files to a server, restart a service, etc
+
+- We can also prompt a user for approval before performing the actual production deployment.
+
+
+
+Demo Setup:
+-----------
+Here's the current setup for the demo:
+- Jenkins server configured to manage webhooks on GitHub
+- Personal fork of sample code at https://github.com/linuxacademy/cicd-pipeline-train-schedule-cd
+- Staging and production webservers with:
+		- A user called deploy set up with permissions to perform deployment steps.
+		- Systemcd service configured for the train schedule app.
+
+
+step 1: Installing plugins
+---------------------------
+open jenkins ---> go to "Manage Jenkins" ---> "Manage Plugin" ---> "available" ---> search "Pubilsh Over Ssh" --> select "Publish over Ssh"
+----> "install without restart" --->
+
+step 2: configure webserver details
+------------------------------------
+go to "Manage Jenkins" ---> "Configure System" ---> go to "Publish over Ssh" section ---> "Add" ---> 
+Name: <staging webservername>
+Hostname: <staging webserver IP>     // if server is within network use private ip otherwise use public IP
+Username: <leave blank>      // we will configure this on different way
+Remote Directory: /          
+
+add and follow same thing for production server
+
+step 3: configure credentials for webserver user
+-------------------------------------------------
+go to "Credentials"  ---> click on "Jenkins" from "Stores scoped to jenkins" section ---> "Global credentials (unrestricted)"
+---> click "Add Credentials" ---> 	
+     kind : usrname with password   // you can use username and ssh key alos 
+	 Username: <which is created on staging and production server>
+	 Password: <enter password of the user>
+	 ID: <webserver _login>     // anything which you want
+	 Description: <anything you want>
+---> click on "ok"
+
+
+step 4: setup multibranch pipeline project
+-------------------------------------------
+click on "New Item" ---> Enter an Item name : train-schedule ---> select "Multibranch pipeline"  ---> click "ok"
+
+go to "Branch Sources" section ---> click on "Add source" ---> select "GitHub"  
+credentials ---> Add ---> Jenkins ---> 
+	kind : username with password
+	username: <github username>
+	Password: <github api key>     // which is generated previous videos
+	ID: <it is anything you want to identify using this>
+	Description: <Description of credentials>
+---> "Add"  ---> select credentials form the dropdown list
+
+Owner ---> <github username>
+Repository ---> it will automaticall populate --> select your repository
+click on ---> "save"   
+// after save button press it will going to scan all repo and start build with each branch
+
+
+Step 5: Add Jenkins file in your code root directory
+----------------------------------------------------
+Vi Jenkinsfile -->
+--------------
+
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Running build automation'
+                sh './gradlew build --no-daemon'
+                archiveArtifacts artifacts: 'dist/trainSchedule.zip'
+            }
+        }
+        stage('DeployToStaging') {
+            when {
+                branch 'master'
+            }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
+                    sshPublisher(
+                        failOnError: true,
+                        continueOnError: false,
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'staging',
+                                sshCredentials: [
+                                    username: "$USERNAME",
+                                    encryptedPassphrase: "$USERPASS"
+                                ], 
+                                transfers: [
+                                    sshTransfer(
+                                        sourceFiles: 'dist/trainSchedule.zip',
+                                        removePrefix: 'dist/',
+                                        remoteDirectory: '/tmp',
+                                        execCommand: 'sudo /usr/bin/systemctl stop train-schedule && rm -rf /opt/train-schedule/* && unzip /tmp/trainSchedule.zip -d /opt/train-schedule && sudo /usr/bin/systemctl start train-schedule'
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
+            }
+        }
+        stage('DeployToProduction') {
+            when {
+                branch 'master'
+            }
+            steps {
+                input 'Does the staging environment look OK?'
+                milestone(1)
+                withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
+                    sshPublisher(
+                        failOnError: true,
+                        continueOnError: false,
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'production',
+                                sshCredentials: [
+                                    username: "$USERNAME",
+                                    encryptedPassphrase: "$USERPASS"
+                                ], 
+                                transfers: [
+                                    sshTransfer(
+                                        sourceFiles: 'dist/trainSchedule.zip',
+                                        removePrefix: 'dist/',
+                                        remoteDirectory: '/tmp',
+                                        execCommand: 'sudo /usr/bin/systemctl stop train-schedule && rm -rf /opt/train-schedule/* && unzip /tmp/trainSchedule.zip -d /opt/train-schedule && sudo /usr/bin/systemctl start train-schedule'
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
+            }
+        }
+    }
+}
+
+:wq --->
+
+commit your code it will start automatic build before in previous we set webhooks
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+1. Introducing Jenkins Pipelines
+=================================
+Jenkins is a great CI tool, but it is also powerful component of continuous deployment. Jenkins Pipelines is a suite of official Jenkins plugins which support CD functionality.
+I will introduce you Jenkins Pipelines and gives a quick overview of what it looks like to create and execute a pipeline.
+After completing this you should have a basic understanding of what Jenkins Pipelines is, and you should be ready to begin learning how to implement one.
+
+For more information on Jenkins Pipelines, check out the official documentation: https://jenkins.io/doc/book/pipeline/
+
+
+What is Jenkins Pipelines ?
+----------------------------
+Jenkins Pipelines is a set of Jenkins plugins that support doing continuous delivery in Jenkins.
+
+A Jenkins Pipeline is an automated process built on these tools. It takes source code through a "pipeline" from the source code creation all the way to production deployment.
+
+You can find the jenkins pipelines documentation at https://jenkins.io/doc/book/pipeline/
+
+
+How do you Create a Jenkins Pipeline?
+--------------------------------------
+Pipelines adheres to the best practice of infrastructure as code.
+
+Therefore, a pipeline is implemented in a file that is kept in source control along with the rest of the application code.
+This file is called a Jenkinsfile.
+
+To create a Pipeline, simply create a file called Jenkinsfile and add it to your source control repo.
+
+When creating the Jenkins project, choose the "Pipeline" or "Multibranch Pipeline" project type.
+
+
+What Goes in a Jenkinsfile?
+---------------------------
+Pipelines has a domain-specific-language(DSL) that is used to define the pipeline logic.
+
+There are two styles of Pipeline syntax you can use (you must choose one or the other):
+	- Scripted - A bit more like procedural code
+	- Declarative - Sytax described the Pipeline logic
+
+
+create a simple pipelie project:
+---------------------------------
+Open Jenkins dashboard --->
+click on "New Item" ---> Enter Project Name "pipeline-demo" --> select "Pipeline" ---> click "ok" --->
+on configuration page go to "pipeline" section ---> in Defination box select "Pipeline script" --->
+add below script in empty white box -->
+script:
+-------
+pipeline{
+	agent any
+	stages{
+		stage ("build") {
+			steps{
+				echo "Building...."
+				}
+			}
+		stage ("Test") {
+			steps{
+				echo "Testing..."
+				}
+			}
+		stage ("Deploy") {
+			steps{
+				echo "Deploy"
+				}
+			}
+		}
+	}
+}
+
+make sure "Use Groovy Sandbox" checkbox is marked.
+
+click on "save"
+
+click on "Build Now"   so project start building and you can see on project dashboard show all stages (time,progressbar,logs)
+
+

@@ -1,0 +1,56 @@
+2. Jenkins Pipeline Stages and Steps
+=====================================
+The basic structure of a Jenkins pipeline consists of stages and steps. You need to be familiar with these concepts in order to build your own Jenkins pipelines.
+We will going to see these two concepts and walks you through a sample Jenkinsfile that uses a stage and a few steps to implement a CI build.
+After completing this you will be ready to proceed toward implementing more complex functionality within a Jenkins pipeline.
+
+When building Jenkins pipelines, you may need to consult the steps reference: https://jenkins.io/doc/pipeline/steps/
+
+Feel free to check out the sample Jenkinsfile used in the demo for this lesson: https://github.com/linuxacademy/cicd-pipeline-train-schedule-pipelines/blob/example-solution/Jenkinsfile
+
+
+
+Pipeline Stages:
+----------------
+Pipeline Stages are large pieces of the CD process.
+
+For Example:
+	- Build the code
+	- Test the code
+	- Deploy to Staging
+	- Deploy to Production
+
+
+Pipeline Steps:
+---------------
+Pipeline Steps are the individual tasks that make up each stage.
+
+For example:
+	- Execute a command
+	- Copy files to a server
+	- Restart a service
+	- Wait for input from a human
+
+Steps are implemented through special declarative keywords in the jenkinsfile DSL. Jenkins plugis can add new steps.
+
+Check out the Steps reference for documentation on many of the steps that are available:
+https://jenkins.io/doc/pipeline/steps/
+
+Jenkinsfile: (only for CI - build step )
+------------
+pipeline{
+	agent any
+	stages{
+		stage("Build...") {
+			steps {
+				echo "Running build automation"
+				sh ./gradlew build --no-daemon"
+				archiveArtifacts artifacts: 'dist/trainSchedule.zip'
+			}
+		}
+	}
+}
+
+
+
+			
