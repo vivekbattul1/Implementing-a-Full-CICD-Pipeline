@@ -1,0 +1,49 @@
+3. Docker Basics
+================
+In order to utilize Docker within the context of a CI/CD Pipeline, you need some basic knowledge of its concepts and how it is used. In this we will cover some of the essential concepts of Docker, such as images, containers, and registries. We will also demonstrate a few of the common commands that you will use to interact with Docker.
+After completing this you will know how to build a Docker image and publish it to Docker Hub. You will also know how to run a container using a Docker image.
+
+For more information, check out Docker's official getting started guide: https://docs.docker.com/get-started/
+
+
+Docker Basics:
+--------------
+Image- Package of the software and everything it needs in order to run.
+Container - An instance of an image.
+
+Images exist in hierarchy, meaning most images have a parent image. Each new layer of the hierarchy adds a little bit of new configuration or functionality.
+
+When we build a docker image for the train-schedule app, we will use a parent image that already has 90% of what we need. We will just add the train-schedule app itself.
+
+
+
+Building and Running with Docker:
+----------------------------------
+An image is defined in a Dockerfile and then created using the docker build command.
+
+When you build, you give your image a name (and possibly tags):
+$ docker build -t <docker username>/<image-name>.
+
+Once you build the image, you can create and run a container instance of it with docker run:
+$ docker run -d <docker username>/<image-name>
+
+Two other commands we'll need:
+	- docker ps - see running containers
+	- docker stop <container id> - stop a container 
+
+
+Docker Registries:
+------------------
+A Docker registry is a place to store images.
+
+Once you docker build an image, you can docker push it to a registry.
+
+They you can docker run that image from anywhere that is set up to access that registry.
+
+You can manitain your own private registries (as Docker Container, of course), or you can use the official cloud registry, Docker Hub (hub.docker.com).
+
+
+You can authenticate with Docker Hub with:
+	docker login --username=<hub username> --email=<hub email>
+	
+

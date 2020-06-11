@@ -1,0 +1,40 @@
+1. Why Containers?
+==================
+An important step in the journey toward a full CI/CD Pipeline is containerization. Containers make it easier to implement some of the automation features involved in orchestration. In this we will discuss what containers are and why we want to use them in the context of a CI/CD Pipeline. We will also introduce Docker, the container tool of choice for this course.
+
+Feel free to check out Docker's own overview of the Docker technology: https://www.docker.com/what-docker
+
+
+Why Containers?
+----------------
+We can do continuous deployment with the current architecture!
+
+BUT: 
+	- What about scaling?
+	- What if some change breaks the server?
+	- Can we be confident our testing matches production?
+	
+One way to solve these problems would be utilize virtualization tools. We could build a VM image that would let up spin up new production servers when we need to.
+
+But:
+	- VMs are slow
+	- VMs use a lot of resources
+	- Vms are not protable
+	- When we deploy a new version of the code, we have to make sure it gets deployed to a bunch of VMs
+	
+
+What if we could package the code AND the system-level configuration in a lightweight package that can stand up quickly and run almost anywhere?
+
+
+Why Containers?
+---------------
+VMs contain a entire copy of an OS, plus simulations of all the hardware. Containers have only what the app needs in order to run.
+
+With Containers we can:
+	- Stand up(and tear down) instances quickly
+	- Distribute the whole app including the "server" in a ready-to-run state
+	- Run the container on my developer machine as well as production
+	- Easily manage automation to provision and orchestrate container instances
+
+In short, containers use fewer resources, and orchestration is a lot easier with containers!
+

@@ -1,0 +1,21 @@
+2. Installing Docker
+=====================
+In order to begin using Docker, you need to know how to install it. I will guide you through the process of installing Docker within a CentOS 7 environment. After completing this you should have an understanding of how to install Docker.
+
+If you want more information, or you want to know how to install Docker in a non-CentOS 7 environment, be sure to check out the official Docker install documentation: https://docs.docker.com/install/
+
+
+Installing Docker:
+------------------
+You can find installation instructions for a variety of systems at https://docs.docker.com/install/
+
+On CentOs, you can install it like so:
+$ sudo yum install docker
+
+Docker includes a background process that you need to start and enable:
+$ sudo systemctl start docker
+$ sudo systemctl enable docker
+
+Verify the instllation with:
+$ sudo docker info
+
